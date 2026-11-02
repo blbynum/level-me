@@ -1,4 +1,4 @@
-# ai-scaling-skills
+# level-me
 
 One Agent Skill, `level-me`, that assesses how a person or a team uses AI
 coding tools. It reads the harness configuration and the recent session
@@ -29,8 +29,8 @@ one.
    the clone, so they break if you move or delete it.
 
    ```sh
-   git clone git@github.com:blbynum/ai-scaling-skills.git ~/src/ai-scaling-skills
-   cd ~/src/ai-scaling-skills
+   git clone git@github.com:blbynum/level-me.git ~/src/level-me
+   cd ~/src/level-me
    ```
 
 2. Run the link script for your harness. For Claude Code:
@@ -39,20 +39,20 @@ one.
    ./link.sh --harness claude-code
    ```
 
-   Output for a clone at `~/src/ai-scaling-skills`:
+   Output for a clone at `~/src/level-me`:
 
    ```text
-   Repository: /Users/you/src/ai-scaling-skills
+   Repository: /Users/you/src/level-me
    Harness:    Claude Code (claude-code)
    Skills:     /Users/you/.claude/skills
      linked level-me
 
-   The links point into /Users/you/src/ai-scaling-skills.
+   The links point into /Users/you/src/level-me.
    The files stay there; the harness reads them through the links.
    To change a skill's settings on this machine, edit config.local.yaml in
-   the skill's directory, /Users/you/src/ai-scaling-skills/skills/<name>/. Git ignores that file.
-   To get updates, run "git pull" in /Users/you/src/ai-scaling-skills, then run this command again:
-     /Users/you/src/ai-scaling-skills/link.sh --harness claude-code
+   the skill's directory, /Users/you/src/level-me/skills/<name>/. Git ignores that file.
+   To get updates, run "git pull" in /Users/you/src/level-me, then run this command again:
+     /Users/you/src/level-me/link.sh --harness claude-code
    It links added skills and rules, and removes the links to deleted ones.
    ```
 
@@ -128,7 +128,7 @@ Then run the command that the last run of `link.sh` printed; it links
 added skills and removes links to deleted ones:
 
 ```sh
-~/src/ai-scaling-skills/link.sh --harness claude-code
+~/src/level-me/link.sh --harness claude-code
 ```
 
 ## What is here
