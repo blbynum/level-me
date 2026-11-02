@@ -22,6 +22,18 @@ the default under plain prompting:
   report says what the next step costs, and recommends it only when the
   verification machinery that makes it safe is in place or is the step.
 
+## Config
+
+| Key | Required | Default | Purpose |
+|---|---|---|---|
+| docs-skill | no | | skill that files the assessment as a document; when unset, write it to a Markdown file in the project directory |
+
+Read `config.local.yaml` in this skill's directory before anything else.
+A key missing there takes its Default from the table. If a required key is
+missing or empty, stop: name the key and its purpose, and offer to write
+`config.local.yaml` with the values the user gives. If a configured
+directory does not exist, stop and say so; do not create it.
+
 ## Workflow
 
 Copy this checklist into the response and check items off as you go:
@@ -194,6 +206,12 @@ Cost: ...
 ## Not observable from this machine
 (what the assessment could not see)
 ```
+
+The assessment is a document for a reader who will act on it. File it
+through the configured docs skill (`docs-skill`) as a report, under the
+project the assessment is about; when unset, write it to a Markdown file
+in the project directory. The reply carries the placement table and the
+next level; the filed report carries all of it.
 
 ## Judgment calls
 
