@@ -1,4 +1,4 @@
-# ai-scaling-skills: instructions for agents
+# level-me: instructions for agents
 
 <!-- last-verified: 2026-11-02 -->
 
