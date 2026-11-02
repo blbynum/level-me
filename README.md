@@ -135,7 +135,7 @@ added skills and removes links to deleted ones:
 
 | Path | What it does | Config keys |
 |---|---|---|
-| `skills/level-me/` | Assesses AI coding tool usage from harness configuration and session transcripts, places it on the maturity scales, and gives next steps up to an orchestration pipeline. Its `references/` hold the scales, the scoring rubric, the next steps per level, the orchestration tools, and one file per harness. Its `scripts/scan.py` collects the signals. | none |
+| `skills/level-me/` | Assesses AI coding tool usage from harness configuration and session transcripts, places it on the maturity scales, and gives next steps up to an orchestration pipeline. Its `references/` hold the scales, the scoring rubric, the next steps per level, the orchestration tools, and one file per harness. Its `scripts/scan.py` collects the signals. | `docs-skill` (optional) |
 | `link.sh` | Links the skills in `skills/` and the rules in `rules/` into a harness's user-level directories. A copy of the link script from [meta-skills](https://github.com/blbynum/meta-skills/blob/master/link.sh). | |
 | `AGENTS.md` | Instructions for agents that work on this repository: the versioning procedure. `CLAUDE.md` and `GEMINI.md` import it. | |
 | `VERSION` | The repository version, `major.minor.snapshot`. | |
@@ -144,8 +144,10 @@ added skills and removes links to deleted ones:
 
 A skill reads its values from `config.local.yaml` in its own directory,
 which git ignores. A skill whose required key is missing stops and offers
-to write the file. `level-me` has no config keys, so there is nothing to
-configure.
+to write the file. `level-me` has one optional key, `docs-skill`, which
+names the skill that files the assessment as a document. If the key is
+unset, `level-me` writes the assessment to a Markdown file in the project
+directory.
 
 ## Portability
 
