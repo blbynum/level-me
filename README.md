@@ -1,15 +1,18 @@
 # level-me
 
-One Agent Skill, `level-me`, that assesses how a person or a team uses AI
-coding tools. It reads the harness configuration and the recent session
+Two Agent Skills. `level-me` assesses how a person or a team uses AI
+coding tools: it reads the harness configuration and the recent session
 transcripts on a machine, places the setup on the AI coding maturity
 scales (Yegge's eight levels, Shapiro's Levels 0 to 5, and three scored
 dimensions: agency per agent, orchestration across agents, and feedback
 infrastructure), and gives the practical next steps, level by level, up to
-a full orchestration pipeline. The skill is a directory in `skills/` with
-a `SKILL.md` under the [Agent Skills standard](https://agentskills.io/).
-The repository is not installed into a harness; `link.sh` links it into
-one.
+a full orchestration pipeline. `level-up` plans the move up from that
+assessment: one container per rung, one mechanism per task, a gate task
+per rung, written as Markdown ticket files or as tickets in a tracker,
+with a short design document beside the plan. Each skill is a directory
+in `skills/` with a `SKILL.md` under the
+[Agent Skills standard](https://agentskills.io/). The repository is not
+installed into a harness; `link.sh` links it into one.
 
 ## Contents
 
@@ -46,6 +49,7 @@ one.
    Harness:    Claude Code (claude-code)
    Skills:     /Users/you/.claude/skills
      linked level-me
+     linked level-up
 
    The links point into /Users/you/src/level-me.
    The files stay there; the harness reads them through the links.
@@ -121,6 +125,13 @@ transcripts. Sessions that an eval runner or a batch job started are
 counted apart from interactive ones, so a machine that runs many headless
 sessions is not scored on them.
 
+To plan the move up, ask in your own words, for example "plan my move up
+the ladder from the assessment" or "turn the assessment into tickets". In
+Claude Code, `/level-up` invokes it by name. The skill reads the latest
+assessment, asks how far up to plan and which constraints hold, and
+writes one directory per rung with a task file per mechanism, or the
+same plan in the configured tracker, with a design document beside it.
+
 ## Update
 
 Run `git pull` in the clone. A pull changes the linked skill at once.
@@ -136,6 +147,7 @@ added skills and removes links to deleted ones:
 | Path | What it does | Config keys |
 |---|---|---|
 | `skills/level-me/` | Assesses AI coding tool usage from harness configuration and session transcripts, places it on the maturity scales, and gives next steps up to an orchestration pipeline. Its `references/` hold the scales, the scoring rubric, the next steps per level, the orchestration tools, and one file per harness. Its `scripts/scan.py` collects the signals. | `docs-skill` (optional) |
+| `skills/level-up/` | Plans the move up from the latest `level-me` assessment to a target rung: one container per rung, one mechanism per task with a four-part brief (Scope, Files, Acceptance, Do not touch), a gate task per rung that re-runs `level-me`, and a design document. Writes Markdown ticket files by default, or tickets in a tracker through a ticket skill. Its `references/` hold the ticket file format, the operations it asks of a ticket skill, the design document's contents, and one file per harness. | `ticket-skill` (optional), `docs-skill` (optional) |
 | `link.sh` | Links the skills in `skills/` and the rules in `rules/` into a harness's user-level directories. A copy of the link script from [meta-skills](https://github.com/blbynum/meta-skills/blob/master/link.sh). | |
 | `AGENTS.md` | Instructions for agents that work on this repository: the versioning procedure. `CLAUDE.md` and `GEMINI.md` import it. | |
 | `VERSION` | The repository version, `major.minor.snapshot`. | |
@@ -148,6 +160,19 @@ to write the file. `level-me` has one optional key, `docs-skill`, which
 names the skill that files the assessment as a document. If the key is
 unset, `level-me` writes the assessment to a Markdown file in the project
 directory.
+
+`level-up` has two optional keys. `ticket-skill` names a skill that
+implements the ticket platform contract, such as a skill for Plane, Jira,
+or GitHub issues; when it is set, `level-up` creates the plan in that
+tracker, one container per rung and one ticket per task, instead of as
+files. `docs-skill` names the skill that files the plan's design
+document; when it is unset, the document is `design.md` in the plan
+directory. A `config.local.yaml` for a machine with both:
+
+```yaml
+ticket-skill: plane
+docs-skill: doc-author
+```
 
 ## Portability
 
@@ -163,6 +188,14 @@ Codex it counts sessions, and for Cursor, Gemini CLI, and Copilot it reads
 configuration only. An assessment in another harness therefore rests on
 that harness's configuration plus what the person reads by hand.
 
+`level-up` is a portable skill (`metadata.harness: portable`,
+`last-verified: 2026-11-03`). It names actions, not tools, and its one
+harness reference is `references/claude-code.md`. It takes the ladder from
+`level-me`'s references, so the two skills are linked together. The
+portability check ran on 2026-11-03 with zero hits. Limits as of
+2026-11-03: the skill has run only in Claude Code (2.1.287); in another
+harness, the gate tasks name the harness's own way to run `level-me`.
+
 ## The provenance ledger
 
 The sources behind the skill's guidance, with the date each was last
@@ -177,6 +210,8 @@ file, so it costs no context when the skill loads.
   standard library only. Tested on Python 3.9.6 and 3.12; no 3.8 was
   available for a test run. Without Python, the skill's harness
   references give the manual inspection steps.
+- `level-up`: no command-line tool. It reads `level-me`'s references, so
+  both skills must be linked, which `link.sh` does in one run.
 
 ## Versioning
 

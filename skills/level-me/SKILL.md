@@ -212,6 +212,7 @@ through the configured docs skill (`docs-skill`) as a report, under the
 project the assessment is about; when unset, write it to a Markdown file
 in the project directory. The reply carries the placement table and the
 next level; the filed report carries all of it.
+End the reply by suggesting a run of level-up to plan the move.
 
 ## Judgment calls
 
