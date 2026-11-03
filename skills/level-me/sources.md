@@ -100,3 +100,24 @@ the first version is `~/projects/ai/ai-coding-levels-research-2026-11-02.md`.
 - Paperclip: https://github.com/paperclipai/paperclip
 - Claude Squad: https://github.com/smtg-ai/claude-squad ; Conductor: https://conductor.build/docs ; ccmanager: https://github.com/kbwo/ccmanager ; vibe-kanban: https://github.com/BloopAI/vibe-kanban
 - Vendor cloud agents: https://learn.chatgpt.com/docs/cloud ; https://jules.google/docs ; https://docs.devin.ai/ ; https://github.com/OpenHands/OpenHands ; https://docs.factory.com/
+
+## Authoring and harness pages re-read for the level-me pass (2026-11-02)
+
+Moved from the shared ledger on 2026-11-03.
+
+### Skill authoring best practices
+- URL: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+- Last read: 2026-11-02 (re-fetched in full for the level-me pass; every section the standards cite read unchanged: name/description limits and no-XML rule, third person, 500-line body, one-level references, TOC for 100+-line files, degrees of freedom, scripts that solve rather than defer, no voodoo constants, eval-first with three evaluations and a baseline; the 'There is not currently a built-in way to run these evaluations' note is still on the page).
+
+### Claude Code permissions and permission modes
+- URLs: https://code.claude.com/docs/en/permissions ,
+  https://code.claude.com/docs/en/permission-modes
+- Last read: 2026-11-02 (both pages re-read by a research subagent for the level-me pass, which records what a level-me assessment keys on: six modes `default` (labeled Manual), `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`; `auto` runs 'without routine prompts' behind 'a background classifier' and is 'the built-in starting permission mode for interactive terminal and VS Code sessions' from v2.1.283; `claude -p` and Agent SDK runs 'start in Manual mode' from v2.1.302 and accept `--permission-mode`; `defaultMode` sets the start mode; `permissions.disableAutoMode` joins `disableBypassPermissionsMode`; 'Any `permissionMode` in the subagent's frontmatter is ignored'; `--dangerously-skip-permissions` equals `--permission-mode bypassPermissions`, 'Only use this mode in isolated environments like containers or VMs'; the prompt offers 'Yes, and switch to auto mode'; sandboxing is a separate OS-level layer; page cites v2.1.314).
+
+### Claude Code skills documentation
+- URL: https://code.claude.com/docs/en/skills
+- Last read: 2026-11-02 (one WebFetch extraction of the first 100k characters for the level-me pass: the frontmatter table still lists the 20 fields; verbatim `allowed-tools` 'It does not restrict which tools are available', `context: fork` 'only makes sense for skills with explicit instructions', the 1,536-character listing cut, the injection syntax; 'Skills in a `.claude/skills/` directory below where you started don't load at startup'; 'Claude Code ignores a field it doesn't recognize without reporting an error'; newest version cited v2.1.309, for prefixed names of same-named skills from added directories).
+
+### Claude prompting best practices
+- URL: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices
+- Last read: 2026-11-02 (re-fetched in full, 74.7KB, for the level-me pass and grepped: the over-triggering passage still names 'Claude Opus 4.5 and Claude Opus 4.6' and the migration list 'Claude 4.6 models'; 'If in doubt, use [tool]' still 'cause[s] overtriggering'; the Fable 5.1 'fewer user-facing updates' and 'already formats less than earlier models' lines unchanged; the Opus 5 self-check exception unchanged; prefills return 400 on 4.6 models and later; headings unchanged).
